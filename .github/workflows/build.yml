@@ -46,7 +46,7 @@ jobs:
               docker rm servicerequest-dashboard || true
               docker run -d \
               --name servicerequest-dashboard \
-              -p 8081:8080 \
+              -p 8081:8090 \
               ${{ secrets.DOCKER_USERNAME }}/servicerequest-dashboard:v1
 
         
