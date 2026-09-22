@@ -29,10 +29,10 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Docker Build
-        run: docker build -t ${{ secrets.DOCKER_USERNAME }}/serviceRequest-Dashboard:v1 .   
+        run: docker build -t ${{ secrets.DOCKER_USERNAME }}/servicerequest-dashboard:v1 .   
 
       - name: Docker Push
-        run: docker push ${{ secrets.DOCKER_USERNAME }}/serviceRequest-Dashboard:v1
+        run: docker push ${{ secrets.DOCKER_USERNAME }}/servicerequest-dashboard:v1
 
       - name: Deploy to Server
         uses: appleboy/ssh-action@v1.2.2
@@ -41,12 +41,12 @@ jobs:
             username: ${{ secrets.SERVER_USERNAME }}
             key: ${{ secrets.SERVER_SSH_KEY }}
             script: |
-              docker pull ${{ secrets.DOCKER_USERNAME }}/serviceRequest-Dashboard:v1
-              docker stop serviceRequest-Dashboard || true
-              docker rm serviceRequest-Dashboard || true
+              docker pull ${{ secrets.DOCKER_USERNAME }}/servicerequest-dashboard:v1
+              docker stop servicerequest-dashboard || true
+              docker rm servicerequest-dashboard || true
               docker run -d \
-              --name serviceRequest-Dashboard \
+              --name servicerequest-dashboard \
               -p 8081:8080 \
-              ${{ secrets.DOCKER_USERNAME }}/serviceRequest-Dashboard:v1
+              ${{ secrets.DOCKER_USERNAME }}/servicerequest-dashboard:v1
 
         
